@@ -4,14 +4,14 @@ import COLORS from '../assets/colors';
 
 const MoviesListCard = props => {
   return (
-    
-    <TouchableOpacity onPress={() =>{
-      props.navigation.navigate('MovieDetails',{
-        id: props.id,
-        title: props.title,
-        image: props.image
-      })
-    }}>
+    <TouchableOpacity
+      onPress={() => {
+        props.navigation.navigate('MovieDetails', {
+          id: props.id,
+          title: props.title,
+          image: props.image,
+        });
+      }}>
       <View>
         <Image
           source={{uri: props.image}}
@@ -25,10 +25,17 @@ const MoviesListCard = props => {
       </View>
 
       <View style={{alignItems: 'center', marginTop: 10}}>
-        <Text style={{color: COLORS.white, fontWeight:'600',textAlign: 'center', marginHorizontal: 20}}>{props.title}</Text>
+        <Text
+          style={{
+            color: COLORS.white,
+            fontWeight: '600',
+            textAlign: 'center',
+            marginHorizontal: 20,
+          }}>
+          {props.title}
+        </Text>
       </View>
-      </TouchableOpacity>
-    
+    </TouchableOpacity>
   );
 };
 
