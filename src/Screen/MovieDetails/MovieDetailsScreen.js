@@ -217,6 +217,9 @@ const MovieDetailsScreen = props => {
               fontSize: 24,
               fontWeight: '600',
             }}>Awards:</Text>
+            <View style={{color: COLORS.transparentWhite}}>
+              
+            </View>
         </View>
       </View>
     </ScrollView>
