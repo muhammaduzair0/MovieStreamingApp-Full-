@@ -96,7 +96,7 @@ const MovieDetailsScreen = props => {
                   marginHorizontal: 3,
                   fontSize: 12,
                 }}>
-                IMDB {moviesData.imDbRating}
+                IMDB-{moviesData.imDbRating}
               </Text>
               <Text
                 style={{
