@@ -14,6 +14,7 @@ import {movieAPI} from '../../Services/APIservices';
 
 const MovieDetailsScreen = props => {
   const [moviesData, setMoviesData] = useState({});
+  const [movieAwards, setMovieAwards] = useState({})
   const [onLoad, setOnLoad] = useState(false);
   const {id, title, image} = props?.route?.params;
 
@@ -26,6 +27,21 @@ const MovieDetailsScreen = props => {
       })
       .then(e => {
         setMoviesData(e);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+  useEffect(() => {
+    movieAPI({
+      route: `https://imdb-api.com/en/API/Awards/k_c13f8ogf/${id}`,
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(e => {
+        console.log(e)
+        setMovieAwards(e);
       })
       .catch(error => {
         console.log(error);
@@ -122,7 +138,7 @@ const MovieDetailsScreen = props => {
               fontSize: 24,
               fontWeight: '600',
             }}>
-            Actor List
+            Actor List:
           </Text>
           <FlatList
             data={moviesData.actorList}
@@ -194,6 +210,13 @@ const MovieDetailsScreen = props => {
               );
             }}
           />
+        </View>
+        <View style={{paddingBottom: 100, marginTop: 20, marginHorizontal: 20}}>
+          <Text  style={{
+              color: COLORS.white,
+              fontSize: 24,
+              fontWeight: '600',
+            }}>Awards:</Text>
         </View>
       </View>
     </ScrollView>
