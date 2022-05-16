@@ -23,7 +23,7 @@ const {width, height} = Dimensions.get('window');
 const HomeScreen = ({navigation, route}) => {
   const [movies, setMovies] = useState([]);
   useEffect(() => {
-    movieAPI({route:'https://imdb-api.com/en/API/Top250Movies/k_c13f8ogf'})
+    movieAPI({route:'https://imdb-api.com/en/API/Top250Movies/k_g21rwgmf'})
       .then(e => {
         return e.json();
       })

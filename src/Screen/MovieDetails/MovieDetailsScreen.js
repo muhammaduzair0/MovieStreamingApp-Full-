@@ -14,13 +14,13 @@ import {movieAPI} from '../../Services/APIservices';
 
 const MovieDetailsScreen = props => {
   const [moviesData, setMoviesData] = useState({});
-  const [movieAwards, setMovieAwards] = useState({})
+  const [movieAwards, setMovieAwards] = useState({});
   const [onLoad, setOnLoad] = useState(false);
   const {id, title, image} = props?.route?.params;
 
   useEffect(() => {
     movieAPI({
-      route: `https://imdb-api.com/en/API/Title/k_c13f8ogf/${id}`,
+      route: `https://imdb-api.com/en/API/Title/k_g21rwgmf/${id}`,
     })
       .then(response => {
         return response.json();
@@ -34,13 +34,13 @@ const MovieDetailsScreen = props => {
   }, []);
   useEffect(() => {
     movieAPI({
-      route: `https://imdb-api.com/en/API/Awards/k_c13f8ogf/${id}`,
+      route: `https://imdb-api.com/en/API/Awards/k_g21rwgmf/${id}`,
     })
       .then(response => {
         return response.json();
       })
       .then(e => {
-        console.log(e)
+        console.log(e);
         setMovieAwards(e);
       })
       .catch(error => {
@@ -147,7 +147,6 @@ const MovieDetailsScreen = props => {
               return (
                 <View
                   style={{
-                    flexDirection: 'row',
                     marginTop: 10,
                     alignItems: 'center',
                   }}>
@@ -186,7 +185,7 @@ const MovieDetailsScreen = props => {
                         marginHorizontal: 20,
                         overflow: 'hidden',
                       }}
-                      resizeMode="center"
+                      resizeMode="cover"
                       onLoadStart={() => {
                         setOnLoad(true);
                       }}
@@ -201,8 +200,10 @@ const MovieDetailsScreen = props => {
                   <Text
                     style={{
                       color: COLORS.white,
-                      fontSize: 16,
+                      fontSize: 12,
                       fontWeight: '600',
+                      textAlign:'center',
+                      marginTop: 5
                     }}>
                     {item.name}
                   </Text>
@@ -212,14 +213,47 @@ const MovieDetailsScreen = props => {
           />
         </View>
         <View style={{paddingBottom: 100, marginTop: 20, marginHorizontal: 20}}>
-          <Text  style={{
+          <Text
+            style={{
               color: COLORS.white,
               fontSize: 24,
               fontWeight: '600',
-            }}>Awards:</Text>
-            <View style={{color: COLORS.transparentWhite}}>
-              
+            }}>
+            Awards:
+          </Text>
+          <View>
+            <View>
+              <Text style={{color: COLORS.blue}}>
+                {movieAwards.description}
+              </Text>
+              <FlatList
+                data={movieAwards.items}
+                renderItem={({item}) => {
+                  return (
+                    <View
+                      style={{
+                        backgroundColor: COLORS.transparentWhite,
+                        borderWidth: 1,
+                        borderColor: COLORS.transparentWhite,
+                        borderRadius: 10,
+                        padding: 20,
+                        marginTop: 10
+                      }}>
+                      <Text style={{color: COLORS.white, fontSize: 16}}>
+                        {item.eventTitle}
+                      </Text>
+                      <Text style={{color: COLORS.blue, fontSize: 16}}>
+                        {item.outcomeItems[0].outcomeCategory}
+                      </Text>
+                      <Text style={{color: COLORS.primary, fontSize: 16}}>
+                        {item.outcomeItems[0].outcomeDetails[0].plainText}
+                      </Text>
+                    </View>
+                  );
+                }}
+              />
             </View>
+          </View>
         </View>
       </View>
     </ScrollView>
